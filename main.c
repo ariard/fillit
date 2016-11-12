@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 19:59:32 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/12 23:44:53 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/13 00:35:53 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ int		main(int argc, char **argv)
 }
 
 
-//un tetra = 4 lignes 
-//si plus de 5 caracteres par ligne
-//si caracteres differents de # ou .
-//si plus de 5 #
+//																		un tetra = 4 lignes 
+//																		si plus de 5 caracteres par ligne
+//																		si caracteres differents de # ou .
+//																		si plus de 5 #
 //si # ne se touche pas
-//si moins de 4#
-//saut de lignes entre chaque structure
-//si plus de 26 structures
+//																		si moins de 4#
+//																		saut de lignes entre chaque structure
+//																		si plus de 26 structures
+//
+//split verification dans fichier a part
+//verification descendante, a partir du premier verifier dans les x suivants si occurence jusqu au 4eme
+//un fichier read and clear, un fichier generate structure, un fichier algo, un fichier print

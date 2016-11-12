@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 21:01:03 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/12 23:44:54 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/13 00:35:22 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,30 @@ int					ft_check_tetra(char	*s)
 	x = 0;
 	y = 0;
 	block = 0;
+	while (*s)
+	{
+		if (*s != 10 || *s != 35 || *s != 46)
+			return (0);
+		if (*s == 35)
+			block++;
+		if (*s == 35 && (*(s + 1) != 35 || *(s + 2) != 35 || *(s + 3) != 35 || 
+			*(s + 4) != 35 
+					
+
+		if (block == 1 
+
+		if (x % 5 == 0 && *s != 10)
+			return (0);
+		if (y > 130)
+			return (0);
+		if (y % 5 == 0 && (*s != 10 || (*(s + 1) != 35 || *(s + 1) != 46)))  
+			return (0);
+		if (y % 5 == 0 && block != 4)
+			return (0);
+		s++;
+	}
+	return (1);
+}
 
 char				**ft_generate_all_tetra(char *files)
 {
