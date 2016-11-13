@@ -6,14 +6,12 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 19:59:32 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/13 16:40:38 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/13 20:15:20 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
-
-char	*ft_read_tetra(char *files);
 
 int		main(int argc, char **argv)
 {
@@ -23,7 +21,8 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
-
+//si struct null ou vide ou incomplete
+//check si 4 lignes ou moins
 //un tetra = 4 lignes 
 //si plus de 5 caracteres par ligne
 //si caracteres differents de # ou .

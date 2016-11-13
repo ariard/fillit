@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 15:31:51 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/12 23:44:50 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/13 20:15:08 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,9 @@ typedef struct		s_tetra
 	int		*pos3;
 	int		*pos4;
 }					t_tetra;
+
+char				*ft_read_tetra(char *files);
+
+int					ft_check_all(char *s);
 
 #endif
