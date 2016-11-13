@@ -6,20 +6,20 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 19:59:32 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/13 00:35:53 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/13 15:28:17 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-char	**ft_check_tetra(char *files);
+char	*ft_read_tetra(char *files);
 
 int		main(int argc, char **argv)
 {
 	if (argc > 2)
 		ft_putstr("too many files");
-	ft_check_tetra(argv[1]);
+	printf("fichier passe : \n%s", ft_read_tetra(argv[1]));
 	return (0);
 }
 

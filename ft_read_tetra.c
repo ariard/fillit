@@ -6,12 +6,54 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 21:01:03 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/13 00:35:22 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/13 15:32:10 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
+
+int					ft_check_files(char *s, size_t x, size_t y)
+{
+		if (*s != 10 && *s != 35 && *s != 46)		
+			return (1);
+//		if (*s == 35 && (*(s + 1) != 35 || *(s + 2) != 35 || *(s + 3) != 35 || 
+//			*(s + 4) != 35)) 
+
+//		if (block == 1) 
+
+//		if (x % 5 == 0 && *s != 10)
+//			return (0);
+		if (y > 131)
+			return (1);
+//		if (y % 5 == 0 && (*s != 10 || (*(s + 1) != 35 || *(s + 1) != 46)))  
+//			return (0);
+		y = 0;
+		x = 0;
+		return (0);	
+}
+
+int					ft_check(char	*s)
+{
+	size_t			x;
+	size_t			y;
+
+	x = 1;
+	y = 1;
+	while (*s)
+	{
+		if (ft_check_files(s, x, y))
+			return (0);
+		if ((x == 5 && *s == 10) || (y % 5 == 0 && *s == 10))
+		{
+			x = 1;
+			y++;
+			s++;
+		}
+		else (x++ && *s++);
+	}
+	return (1);
+}
 
 char				*ft_read_tetra(char *files)
 {
@@ -29,67 +71,13 @@ char				*ft_read_tetra(char *files)
 	if (fd == -1)
 		return ((char *)-1);
 	while (read(fd, &buf, 1))
-	{
-		*s = buf;
-		s++;
-	}
+		*s++ = buf;
 	if (close(fd) == -1)
 	{
 		ft_putstr("close() failed");
 		return ((char *)-1);
 	}
-	return (tmp);
-}
-
-int					ft_check_tetra(char	*s)
-{
-	size_t			x;
-	size_t			y;
-	int				block;
-
-	x = 0;
-	y = 0;
-	block = 0;
-	while (*s)
-	{
-		if (*s != 10 || *s != 35 || *s != 46)
-			return (0);
-		if (*s == 35)
-			block++;
-		if (*s == 35 && (*(s + 1) != 35 || *(s + 2) != 35 || *(s + 3) != 35 || 
-			*(s + 4) != 35 
-					
-
-		if (block == 1 
-
-		if (x % 5 == 0 && *s != 10)
-			return (0);
-		if (y > 130)
-			return (0);
-		if (y % 5 == 0 && (*s != 10 || (*(s + 1) != 35 || *(s + 1) != 46)))  
-			return (0);
-		if (y % 5 == 0 && block != 4)
-			return (0);
-		s++;
-	}
-	return (1);
-}
-
-char				**ft_generate_all_tetra(char *files)
-{
-	char			*s;
-	size_t			x;
-	size_t			y;
-	t_tetra			*tab;
-	t_tetra			tmp;
-
-	if((s = ft_read_tetra(files)) == -1)
-		return ((char **)-1);
-	x = 0;
-	y = 0;
-	if (ft_check_tetra(s))
-	{
-		
-	}
-	return ((char **)-1);
+	if (ft_check(tmp))
+		return (tmp);
+	return ("!failed!");
 }
