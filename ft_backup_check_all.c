@@ -6,11 +6,25 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 20:04:46 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/14 20:13:47 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/14 20:11:39 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
+
+/*static int			ft_pos(char *s, int block)
+{
+	if ((*(s + 1) == 35 || *(s + 5) == 35) && block < 3)
+		return (1);
+	if ((*(s + 4) == 35 && *(s - 1) == 35) && (block == 1 || block == 2))
+		return (1);
+	if ((*(s + 3) == 35 && *(s - 2) == 35) && (block == 2))	
+		return (1);
+	if ((*(s - 1) == 35 || *(s - 5) == 35) && block == 3)
+		return (1);
+	return (0);
+}*/
 
 static int			ft_check_pos_block(char *s, size_t x, size_t y, int block)
 {

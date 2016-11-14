@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 15:31:51 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/14 16:36:53 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/14 20:09:58 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,18 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+# define POS ((*(s + 1) == 35 || *(s + 5) == 35) && block < 3)\
+				|| (((*(s + 4) == 35 && *(s - 1) == 35) || (*(s + 3) == 35 &&\
+					*(s - 2) == 35)) && (block == 1 || block == 2))\
+						|| ((*(s - 1) == 35 || *(s - 5) == 35) && block == 3)
+
 typedef struct		s_tetra
 {
 	int		*pos1;
 	int		*pos2;
 	int		*pos3;
 	int		*pos4;
+	char	c;
 }					t_tetra;
 
 char				*ft_read_tetra(char *files);

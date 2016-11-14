@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 19:59:32 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/14 16:40:07 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/14 19:51:45 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 
 int		main(int argc, char **argv)
 {
-	char 		*s;
-	t_tetra		*tab;
+//	t_tetra		*tab;
 
 	if (argc > 2)
 		ft_putstr("too many files");
-	s = ft_read_tetra(argv[1]);
-	tab = ft_generate_tetra(s);
+	printf("resultat \n%s", ft_read_tetra(argv[1]));	
+//	tab = ft_generate_tetra(s);
 	return (0);
 }
 
