@@ -1,29 +1,67 @@
-#include "fillit.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_generate_tetra.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/11/14 16:22:13 by ariard            #+#    #+#             */
+/*   Updated: 2016/11/14 16:42:09 by ariard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char				*ft_read_tetra(char	*files)
+#include "fillit.h"
+#include <stdio.h>
+
+static size_t			ft_count_struct(char *s)
 {
-	int				fd;
-	char			buf;
-	char			*s;
-	char			*tmp;
-	size_t			index;
-	s = ft_memalloc(527);
-	ft_bzero(s, 527);
-	index = 0;
-	tmp = s;
-	fd = open(files, O_RDONLY);
-	if (fd == -1)
-		return ((char *)-1);
-	while (read(fd, &buf, 1))
-		*s++ = buf;
-	if (close(fd) == -1)
+	size_t				x;
+	size_t				y;
+	size_t				i;
+
+	i = 1;
+	x = 1;
+	y = 1;
+	while (*s)
 	{
-		ft_putstr("close() failed");
-		return ((char *)-1);
+		if (y % 5 == 0 && *s == 10)
+			i++;
+		if ((x == 5 && *s == 10) || (y % 5 == 0 && *s == 10))
+		{
+			x = 1;
+			y++;
+			s++;
+		}
+		else if (*s++)
+			x++;
 	}
-	if (ft_strlen(tmp) == 0)
-		return ("error");
-	if (ft_check_all(tmp))
-		return ("error");
-	return (tmp);
+	return (i);
+}
+
+
+
+t_tetra					*ft_generate_tetra(char *s)
+{
+		size_t			x;
+		size_t			y;
+		t_tetra			*tab;
+
+		x = 1;
+		y = 1;
+		if (!(tab = (t_tetra *)malloc(sizeof(t_tetra) * ft_count_struct(s))))
+				return (NULL);
+		while (*s == 'A')
+		{
+//			if (*s == 35)
+//				*tab++ = NULL //ft_generate_struct(s, x, y);
+			if ((x == 5 && *s == 10) || (y % 5 == 0 && *s == 10))
+			{
+				x = 1;
+				y++;
+				s++;
+			}
+			else if (*s++)
+				x++;
+		}
+		return (0);
 }
