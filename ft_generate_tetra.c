@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/14 16:22:13 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/14 22:46:07 by ariard           ###   ########.fr       */
+/*   Created: 2016/11/15 18:30:10 by ariard            #+#    #+#             */
+/*   Updated: 2016/11/15 23:13:37 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-static size_t			ft_count_tetra(char *s)
+size_t		ft_count_tetra(char *s)
 {
-	size_t				x;
-	size_t				y;
-	size_t				i;
+	size_t			x;
+	size_t			y;
+	size_t			i;
 
 	i = 1;
 	x = 1;
@@ -28,66 +28,72 @@ static size_t			ft_count_tetra(char *s)
 			i++;
 		if ((x == 5 && *s == 10) || (y % 5 == 0 && *s == 10))
 		{
-			x = 1;
-			y++;
-			s++;
+				x = 1;
+				y++;
+				s++;
 		}
 		else if (*s++)
 			x++;
 	}
-	return (i);
+	return (i + 1);
 }
 
-static t_tetra			ft_create_one(char *s, size_t x, size_t y, int i)
+static t_tetra		*ft_create_one(char *s)
 {
-	t_tetra			tetra;
-	size_t			j;
+	t_tetra		*tetra;
+	int			y;
+	int			x;
+	size_t		i;
 
-	j = 0;
-	while (y % 5 != 0)
+	y = 1;
+	x = 1;
+	i = 0;	
+	if(!(tetra = (t_tetra *)malloc(sizeof(t_tetra))))
+		return (0);
+	while (i != 4) 
 	{
 		if (*s == 35)
 		{
-			tetra.pos[i++] = x;
-			tetra.pos[i++] = y;
+			tetra->shape[i].x = x;
+			tetra->shape[i].y = y;
+			i++;
 		}
-		if ((x == 5 && *s == 10) || (y % 5 == 0 && *s == 10))
+		if (*s == 10 && (*(s - 1) == 35 || *(s - 1) == 46))
 		{
-			x = 1;
 			y++;
-			s++;
+			x = 0;
 		}
-		else if (*s++)
-			x++;
-	}
-	(void)i;
-	tetra.print = 'A' + i;
-	printf("first block x %d y %d ", tetra.pos[0], tetra.pos[1]);
+		s++;
+		x++;
+	}			
 	return (tetra);
 }
 
-t_tetra					*ft_generate_tetra(char *s)
+t_tetra		**ft_generate(char *s)
 {
-	size_t			x;
-	size_t			y;
-	int				i;
-	t_tetra			*tab;
+	t_tetra	**tab;
+	t_tetra **tmp;
+	int		first;
+	unsigned long test;
 
-	x = 1;
-	y = 1;
-	i = 0;
-	if (!(tab = (t_tetra *)malloc(sizeof(t_tetra) * ft_count_tetra(s))))
-		return (NULL);
+	test = ft_count_tetra(s);
+	if (!(tab = (t_tetra **)malloc(sizeof(t_tetra *) * test)))
+		return (0);
+	first = 0;
+	tmp = tab;
 	while (*s)
 	{
-		if (*s == 35 || *s == 46)
-		{
-			 ft_create_one(s, x, y, i);
+		if ((*(s - 1) == 10 && *(s - 2) == 10) || first == 0)
+		{	
+			if(!(*tab = (t_tetra *)malloc(sizeof(t_tetra))))
+				return (0);	
+			*tab = ft_create_one(s);
 			tab++;
-			y += 5;
-			s += 21;
-			i++;
+			first++;
 		}
+		s++;
 	}
-	return (tab);
+//	printf("x1 : %d y1 : %d\n", tab[0]->shape[1].x, tab[0]->shape[1].y); 
+//	printf("x1 : %d y1 : %d\n", tab[0]->shape[1].x, tab[0]->shape[1].y); 
+	return (tmp);
 }

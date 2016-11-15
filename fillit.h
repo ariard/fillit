@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 15:31:51 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/14 22:42:01 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/15 22:40:10 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,22 @@
 					*(s - 2) == 35)) && (block == 1 || block == 2))\
 						|| ((*(s - 1) == 35 || *(s - 5) == 35) && block == 3)
 
+typedef struct		s_vector
+{
+	int				x;
+	int				y;
+}					t_vector;
+
 typedef struct		s_tetra
 {
-	int		pos[9];
-	char	print;
+	t_vector		shape[4];
+	char			print;	
 }					t_tetra;
 
 char				*ft_read_tetra(char *files);
 
 int					ft_check_all(char *s);
 
-t_tetra				*ft_generate_tetra(char	*s);
+t_tetra				**ft_generate(char	*s);
 
 #endif
