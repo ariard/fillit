@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 15:31:51 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/16 14:50:24 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/16 17:31:38 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char				*ft_read_tetra(char *files);
 
 int					ft_check_all(char *s);
 
-t_tetra				**ft_generate(char	*s);
+t_tetra				**ft_generate(char *s, unsigned long nbr);
+
+size_t				ft_count_tetra(char *s);
 
 #endif

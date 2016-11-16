@@ -6,41 +6,16 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 18:30:10 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/16 15:56:18 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/16 17:37:56 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-size_t		ft_count_tetra(char *s)
+static void			ft_put_abs(t_tetra *tetra)
 {
-	size_t			x;
-	size_t			y;
-	size_t			i;
-
-	i = 1;
-	x = 1;
-	y = 1;
-	while (*s)
-	{
-		if (y % 5 == 0 && *s == 10)
-			i++;
-		if ((x == 5 && *s == 10) || (y % 5 == 0 && *s == 10))
-		{
-				x = 1;
-				y++;
-				s++;
-		}
-		else if (*s++)
-			x++;
-	}
-	return (i + 1);
-}
-
-static void		ft_put_abs(t_tetra *tetra)
-{
-	int		subx;
-	int		suby;
+	int				subx;
+	int				suby;
 
 	subx = 0;
 	suby = 0;
@@ -59,20 +34,20 @@ static void		ft_put_abs(t_tetra *tetra)
 	}
 	tetra->shape[1].y = tetra->shape[1].y - suby;
 	tetra->shape[2].y = tetra->shape[2].y - suby;
-	tetra->shape[3].y = tetra->shape[3].y - suby;	
+	tetra->shape[3].y = tetra->shape[3].y - suby;
 }
 
 static t_tetra		*ft_create_one(char *s, size_t x, size_t y, int j)
 {
-	t_tetra		*tetra;
-	size_t		i;
+	t_tetra			*tetra;
+	size_t			i;
 
-	i = 0;	
-	if(!(tetra = (t_tetra *)malloc(sizeof(t_tetra))))
+	i = 0;
+	if (!(tetra = (t_tetra *)malloc(sizeof(t_tetra))))
 		return (0);
-	while (i != 4) 
+	while (i != 4)
 	{
-		if (*s == 35) 
+		if (*s == 35)
 		{
 			tetra->shape[i].x = x;
 			tetra->shape[i].y = y;
@@ -87,20 +62,18 @@ static t_tetra		*ft_create_one(char *s, size_t x, size_t y, int j)
 		x++;
 	}
 	tetra->print = 'A' + j;
-	ft_put_abs(tetra);	
+	ft_put_abs(tetra);
 	return (tetra);
 }
 
-t_tetra		**ft_generate(char *s)
+t_tetra				**ft_generate(char *s, unsigned long nbr)
 {
-	t_tetra	**tab;
-	size_t	x;
-	size_t	y;
-	int		first;
-	int		i;
-	unsigned long nbr;
+	t_tetra			**tab;
+	size_t			x;
+	size_t			y;
+	int				first;
+	int				i;
 
-	nbr = ft_count_tetra(s);
 	if (!(tab = (t_tetra **)malloc(sizeof(t_tetra *) * nbr)))
 		return (0);
 	first = 0;
@@ -110,9 +83,9 @@ t_tetra		**ft_generate(char *s)
 	while (*s)
 	{
 		if ((*(s - 1) == 10 && *(s - 2) == 10) || first++ == 0)
-		{	
-			if(!(tab[i] = (t_tetra *)malloc(sizeof(t_tetra))))
-				return (0);	
+		{
+			if (!(tab[i] = (t_tetra *)malloc(sizeof(t_tetra))))
+				return (0);
 			tab[i] = ft_create_one(s, x, y, i);
 			i++;
 		}
