@@ -6,21 +6,47 @@
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:17:19 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/18 19:45:36 by mleroy           ###   ########.fr       */
+/*   Updated: 2016/11/19 18:57:37 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 #include "fillit.h"
-#include <stdio.h>
 
-void	ft_min_size(t_info *info)
+int		ft_only_fries(t_tetra **tetra, t_info *info)
+{
+	int		i;
+	int		ok;
+
+	ok = 1;
+	i = 0;
+	while (i < info->nb)
+	{
+		if ((tetra[i]->shape[0].x != 0)
+			|| (tetra[i]->shape[1].x != 0)
+			|| (tetra[i]->shape[2].x != 0)
+			|| (tetra[i]->shape[3].x != 0))
+			return (0);
+		i++;
+	}
+	info->fries = i;
+	return (1);
+}
+
+void	ft_min_size(t_tetra **tetra, t_info *info)
 {
 	int			i;
 
 	i = 0;
-	while ((i * i) < (info->nb * 4))
-		i++;
-	info->size = i;
+	if ((ft_only_fries(tetra, info) == 1) && (info->nb <= 8))
+	{
+		info->size = info->fries;
+	}
+	else
+	{
+		while ((i * i) < (info->nb * 4))
+			i++;
+		info->size = i;
+	}
 }
 
 char	**ft_square(t_info *info)

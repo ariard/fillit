@@ -1,53 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/11/17 20:25:32 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/19 19:58:50 by ariard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
-#include <stdio.h>
 
-size_t		ft_count_tetra(char *s)
+int				ft_is_in_square(t_tetra **tetra, t_info *info)
 {
-	size_t	x;
-	size_t	y;
-	size_t	i;
-
-	i = 1;
-	x = 1;
-	y = 1;
-	while (*s)
-	{
-		if (y % 5 == 0 && *s == 10)
-			i++;
-		if ((x == 5 && *s == 10) || (y % 5 == 0 && *s == 10))
-		{
-			x = 1;
-			y++;
-			s++;
-		}
-		else if (*s++)
-			x++;
-	}
-	return (i + 1);
+	if (((0 > (info->j + tetra[info->count]->shape[0].x))
+		|| (info->size - 1 < (info->j + tetra[info->count]->shape[0].x)))
+			|| ((0 > (info->j + tetra[info->count]->shape[1].x))
+				|| (info->size - 1 < (info->j
+					+ tetra[info->count]->shape[1].x))))
+		return (1);
+	if (((0 > (info->j + tetra[info->count]->shape[2].x))
+		|| (info->size - 1 < (info->j + tetra[info->count]->shape[2].x)))
+			|| ((0 > (info->j + tetra[info->count]->shape[3].x))
+				|| (info->size - 1 < (info->j
+					+ tetra[info->count]->shape[3].x))))
+		return (1);
+	if (((0 > (info->i + tetra[info->count]->shape[0].y))
+		|| (info->size - 1 < (info->i + tetra[info->count]->shape[0].y)))
+			|| ((0 > (info->i + tetra[info->count]->shape[1].y))
+				|| (info->size - 1 < (info->i +
+					tetra[info->count]->shape[1].y))))
+		return (1);
+	if (((0 > (info->i + tetra[info->count]->shape[2].y))
+		|| (info->size - 1 < (info->i + tetra[info->count]->shape[2].y)))
+			|| ((0 > (info->i + tetra[info->count]->shape[3].y))
+				|| (info->size - 1 < (info->i
+					+ tetra[info->count]->shape[3].y))))
+		return (1);
+	return (0);
 }
 
-int			main(int argc, char **argv)
+void			ft_set_info(t_info *info, char *s)
 {
-	size_t			i;
-	char			*s;
-	unsigned long	nbr;
-	t_tetra			**tab;
+	info->i = 0;
+	info->j = 0;
+	info->count = 0;
+	info->nb = ft_count_tetra(s) - 1;
+}
 
-	if (argc == 1)
+int				ft_control(char *s)
+{
+	t_info		info;
+	t_tetra		**tetra;
+	char		**square;
+
+	ft_set_info(&info, s);
+	if ((tetra = ft_generate(s, info.nb + 1)) == NULL)
 		return (0);
-	if (argc > 2)
-		ft_putstr("error");
-	i = 0;
-	s = ft_read_tetra(argv[1]);
-	if (*s != 'e')
+	ft_min_size(tetra, &info);
+	square = ft_square(&info);
+	if (square == NULL)
+		return (0);
+	while (ft_solve(square, tetra, &info) != 1)
 	{
-		nbr = ft_count_tetra(s);
-		tab = ft_generate(s, nbr);
-		while (i < ft_count_tetra(s) - 1)
-		{
-			printf("tetra %c\nx1 : %d y1 : %d\nx2 : %d y2 : %d\nx3 : %d y3 : %d\nx4 : %d y4 : %d\n\n", (*tab[i]).print, (*tab[i]).shape[0].x, (*tab[i]).shape[0].y, (*tab[i]).shape[1].x, (*tab[i]).shape[1].y, (*tab[i]).shape[2].x, (*tab[i]).shape[2].y, (*tab[i]).shape[3].x, (*tab[i]).shape[3].y);
-			i++;	
-		}
-	}	
+		ft_del_square(square, &info);
+		info.size += 1;
+		square = ft_square(&info);
+		ft_set_info(&info, s);
+	}
+	ft_print_square(square, &info);
+	return (1);
+}
+
+int				main(int argc, char **argv)
+{
+	char		*s;
+
+	if (argc != 2)
+	{
+		ft_print_usage();
+		return (1);
+	}
+	if (!(s = ft_read_tetra(argv[1])))
+	{
+		ft_print_error();
+		return (1);
+	}
+	if (ft_control(s) == 0)
+		return (1);
 	return (0);
 }

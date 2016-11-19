@@ -3,30 +3,45 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ariard <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: mleroy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/12 16:43:57 by ariard            #+#    #+#              #
-#    Updated: 2016/11/14 16:38:08 by ariard           ###   ########.fr        #
+#    Created: 2016/11/17 20:33:14 by mleroy            #+#    #+#              #
+#    Updated: 2016/11/19 19:58:46 by ariard           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC= gcc
-CFLAGS= -Wall -Wextra -Werror
 NAME= fillit
-SRC= ./main.c ./ft_generate_tetra.c ./ft_check_all.c ./ft_read_tetra.c
-OBJ= ./main.o ./ft_generate_tetra.o ./ft_check_all.o ./ft_read_tetra.o
-HEA= fillit.h libft.a
 
-all : $(NAME)
+SRC= main.c\
+	 ft_print_usage.c\
+	 ft_read_tetra.c\
+	 ft_check_all.c\
+	 ft_generate_tetra.c\
+	 ft_first_grid.c\
+	 ft_solve.c\
+
+OUT= main.o\
+	 ft_solve.o\
+	 ft_print_usage.o\
+	 ft_read_tetra.o\
+	 ft_check_all.o\
+	 ft_generate_tetra.o\
+	 ft_first_grid.o\
+
+HEADER= fillit.h libft.a
+
+FLAGS= -Wall -Werror -Wextra
+
+all: $(NAME)
 
 $(NAME):
-	@ $(CC) $(CFLAGS) -c $(SRC) 
-	@ $(CC) $(CFLAGS) $(OBJ) -I $(HEA) -o $(NAME)
+	@ gcc -c $(FLAGS) $(SRC)
+	@ gcc -o $(NAME) -I $(HEADER) $(OUT) $(FLAGS)
 
 clean:
-	@ /bin/rm -f $(OBJ)
+	@ rm -f $(OUT)
 
-fclean: clean 
+fclean: clean
 	@ rm -f $(NAME)
 
-re: fclean clean all
+re: fclean all

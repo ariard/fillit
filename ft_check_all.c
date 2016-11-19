@@ -6,11 +6,21 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 20:04:46 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/16 17:38:08 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/19 17:20:40 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+static int			ft_check_layout_block(char *s, int block)
+{
+	if (((*(s + 1) == 35 || *(s + 5) == 35) && block < 3) || (((*(s + 4) == 35
+		&& *(s - 1) == 35) || (*(s + 3) == 35 && *(s - 2) == 35)) && (block == 1
+			|| block == 2)) || ((*(s - 1) == 35 || *(s - 5) == 35)
+				&& block == 3))
+		return (1);
+	return (0);
+}
 
 static int			ft_check_pos_block(char *s, size_t x, size_t y, int block)
 {
@@ -19,7 +29,7 @@ static int			ft_check_pos_block(char *s, size_t x, size_t y, int block)
 	{
 		if (*s == 35)
 		{
-			if (POS)
+			if (ft_check_layout_block(s, block))
 				block++;
 			else
 				return (1);
