@@ -6,7 +6,7 @@
 /*   By: ariard <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/19 17:21:40 by ariard            #+#    #+#             */
-/*   Updated: 2016/11/19 19:56:32 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/19 20:55:11 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,31 @@ void				ft_del_square(char **square, t_info *info)
 	square = NULL;
 }
 
+int					ft_one_struct_by_square(char *tmp)
+{
+	size_t			block;
+	int				no_block_yet;
+	size_t			nbr;
+
+	nbr = ft_count_tetra(tmp) - 1;
+	block = 0;
+	no_block_yet = 1;
+	while (*tmp)
+	{
+		if (*tmp == 35 && no_block_yet)
+		{
+			block++;
+			no_block_yet--;
+		}
+		if (*tmp == 10 && *(tmp - 1) == 10)
+			no_block_yet = 1;
+		tmp++;
+	}
+	if (nbr == block)
+		return (0);
+	return (1);
+}
+
 char				*ft_read_tetra(char *files)
 {
 	int				fd;
@@ -72,6 +97,8 @@ char				*ft_read_tetra(char *files)
 	if (close(fd) == -1)
 		return (NULL);
 	if (ft_strlen(tmp) == 0)
+		return (NULL);
+	if (ft_one_struct_by_square(tmp))
 		return (NULL);
 	if (ft_check_all(tmp))
 		return (NULL);
