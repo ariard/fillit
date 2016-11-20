@@ -6,10 +6,10 @@
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 13:17:19 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/19 18:57:37 by ariard           ###   ########.fr       */
+/*   Updated: 2016/11/19 20:33:11 by ariard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
+
 #include "fillit.h"
 
 int		ft_only_fries(t_tetra **tetra, t_info *info)
